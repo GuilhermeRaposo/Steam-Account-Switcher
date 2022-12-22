@@ -1,7 +1,13 @@
 import vdf
 
 def load_users():
-    return vdf.load(open("C:\Program Files (x86)\Steam\config\loginusers.vdf"))["users"]
+    with open("C:\Program Files (x86)\Steam\config\loginusers.vdf") as file:
+        return vdf.load(file)["users"]
+
+def write_users(users):
+    with open("C:\Program Files (x86)\Steam\config\loginusers.vdf", "w") as file:
+        vdf_users = { "users": users}
+        vdf.dump(vdf_users, file, pretty = True)
 
 def get_usernames(users):
     usernames = []
@@ -18,8 +24,6 @@ def get_current_logged_userid(users):
 # and to true on the account that is about to get logged in
 # also makes sure "RememberPassword" is set to true 
 def set_current_logged_user(users, old_userid, new_userid): 
-    print(old_userid)
-    print(new_userid)
     for userid, user in users.items():
         if userid == old_userid:
             user["mostrecent"] = "0"
