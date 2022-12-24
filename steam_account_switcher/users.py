@@ -20,7 +20,7 @@ def get_usernames(users):
     
 def get_current_logged_userid(users):
     for userid, user in users.items():
-        if user["mostrecent"] == "1":
+        if user["MostRecent"]:
             return userid
 
 # Sets the "mostrecent" field to false on the account that is about to get logged off
@@ -29,10 +29,10 @@ def get_current_logged_userid(users):
 def set_current_logged_user(users, old_userid, new_userid): 
     for userid, user in users.items():
         if userid == old_userid:
-            user["mostrecent"] = "0"
+            user["MostRecent"] = "0"
             user["RememberPassword"] = "1"
         if userid == new_userid:
-            user["mostrecent"] = "1"
+            user["MostRecent"] = "1"
             user["RememberPassword"] = "1"
 
 def get_userid_from_username(users, username): 
