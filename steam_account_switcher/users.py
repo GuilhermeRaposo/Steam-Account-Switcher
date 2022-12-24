@@ -1,11 +1,14 @@
 import vdf
+from steam import get_steam_path
 
 def load_users():
-    with open("C:\Program Files (x86)\Steam\config\loginusers.vdf") as file:
+    steam_path = get_steam_path()
+    with open(steam_path + "/config/loginusers.vdf") as file:
         return vdf.load(file)["users"]
 
 def write_users(users):
-    with open("C:\Program Files (x86)\Steam\config\loginusers.vdf", "w") as file:
+    steam_path = get_steam_path()
+    with open(steam_path + "/config/loginusers.vdf", "w") as file:
         vdf_users = { "users": users}
         vdf.dump(vdf_users, file, pretty = True)
 

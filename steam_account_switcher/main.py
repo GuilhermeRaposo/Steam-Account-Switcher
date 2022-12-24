@@ -3,6 +3,7 @@ from pick import pick
 import psutil
 from users import *
 from registry import edit_registry
+from steam import get_steam_path
 
 # Load users and usernames
 users = load_users()
@@ -29,4 +30,5 @@ for proc in psutil.process_iter():
         proc.kill()
 
 # Restart steam process
-os.startfile(r"C:\Program Files (x86)\Steam\steam.exe")
+steam_path = get_steam_path()
+os.startfile(steam_path + "/steam.exe")
