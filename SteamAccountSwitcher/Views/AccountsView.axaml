@@ -4,8 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
              x:Class="SteamAccountSwitcher.Views.AccountsView">
-	<DockPanel>
-		<ListBox Items="{ Binding Items }" SelectedItem="{ Binding SelectedAccount }">
+	
+	<UserControl.Styles>
+		<Style Selector="Label.Title">
+			<Setter Property="FontSize" Value="24" />
+			<Setter Property="FontWeight" Value="Bold" />
+		</Style>
+		<Style Selector="Button.Login">
+			<Setter Property="Width" Value="125" />
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="80" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="50" />
+		</Grid.RowDefinitions>
+
+		<Label Classes="Title" Grid.ColumnSpan="2" Margin="0,20,0,0" Padding="0, 10, 0, 0" HorizontalAlignment="Center" VerticalAlignment="Center">Steam Account Switcher</Label>
+		<ListBox Items="{ Binding Items }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="1">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock
@@ -14,6 +32,6 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<Button Command="{ Binding OnClickCommand }" > Login </Button>
-	</DockPanel>
+		<Button Command="{ Binding OnClickCommand }" Classes="Login" Grid.Row="2" HorizontalAlignment="Center" HorizontalContentAlignment="Center"> Login </Button>
+	</Grid>
 </UserControl>
