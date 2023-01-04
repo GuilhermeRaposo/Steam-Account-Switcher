@@ -19,9 +19,15 @@ namespace SteamAccountSwitcher.ViewModels {
 
         public Account SelectedAccount { get; set; }
 
-        public void OnClickCommand() {
+        public void Login() {
             SteamInstance.UpdateLoginUsers(SelectedAccount.SteamID);
             SteamInstance.UpdateRegistry(SelectedAccount.AccountName);
+            SteamInstance.KillSteam();
+            SteamInstance.RestartSteam();
+        }
+
+        public void AddNew() {
+            SteamInstance.UpdateRegistry("");
             SteamInstance.KillSteam();
             SteamInstance.RestartSteam();
         }

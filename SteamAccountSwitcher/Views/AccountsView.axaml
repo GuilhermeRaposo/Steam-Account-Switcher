@@ -35,6 +35,13 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<Button Command="{ Binding OnClickCommand }" Classes="Login" Grid.Row="3" HorizontalAlignment="Center" HorizontalContentAlignment="Center"> Login </Button>
+		<Grid Grid.Row="3" HorizontalAlignment="Center" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Button Command="{ Binding Login }" Classes="Login" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="10"> Login </Button>
+			<Button Command="{ Binding AddNew }" Grid.Column="1" HorizontalAlignment="Center" Margin="10" >Add New</Button>
+		</Grid>
 	</Grid>
 </UserControl>
