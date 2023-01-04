@@ -18,6 +18,7 @@ namespace SteamAccountSwitcher.Services {
         }
 
         public void GetSteamAccounts() {
+            Accounts.Clear();
             var loginUsersVToken = VdfConvert.Deserialize(File.ReadAllText(Path + @"\config\loginusers.vdf"));
             var loginUsers = new JObject() { loginUsersVToken.ToJson() };
 

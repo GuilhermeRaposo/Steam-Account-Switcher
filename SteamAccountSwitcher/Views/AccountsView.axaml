@@ -26,7 +26,7 @@
 				<Image Source="/Assets/icon.ico" />
 		</DockPanel>
 		<Label Classes="Title" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Steam Account Switcher</Label>
-		<ListBox Items="{ Binding Items }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2">
+		<ListBox Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock
@@ -39,9 +39,13 @@
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 			<Button Command="{ Binding Login }" Classes="Login" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="10"> Login </Button>
-			<Button Command="{ Binding AddNew }" Grid.Column="1" HorizontalAlignment="Center" Margin="10" >Add New</Button>
+			<Button Command="{ Binding AddNewAccount }" Grid.Column="1" HorizontalAlignment="Center" Margin="10" >Add New</Button>
+			<Button Command="{ Binding  ReloadAccounts }" Grid.Column="2" HorizontalAlignment="Center" Height="30" Margin="10">
+				<Image Source="/Assets/reload.png"></Image>
+			</Button>
 		</Grid>
 	</Grid>
 </UserControl>

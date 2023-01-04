@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Avalonia.Interactivity;
 using SteamAccountSwitcher.Models;
 using SteamAccountSwitcher.Services;
 
 namespace SteamAccountSwitcher.ViewModels {
     public class AccountsViewModel : ViewModelBase {
-        public AccountsViewModel(Steam steam) {
-            steam.GetSteamAccounts();
-            SteamInstance = steam;
-            Items = new ObservableCollection<Account>(steam.Accounts);
-        }
-
         private Steam SteamInstance { get; }
 
-        public ObservableCollection<Account> Items { get; }
+        public ObservableCollection<Account> Accounts { get; set; }
 
         public Account SelectedAccount { get; set; }
+
+        public AccountsViewModel(Steam steam) {
+            SteamInstance = steam;
+            SteamInstance.GetSteamAccounts();
+            Accounts = new ObservableCollection<Account>(SteamInstance.Accounts);
+        }
 
         public void Login() {
             SteamInstance.UpdateLoginUsers(SelectedAccount.SteamID);
@@ -26,7 +30,17 @@ namespace SteamAccountSwitcher.ViewModels {
             SteamInstance.RestartSteam();
         }
 
-        public void AddNew() {
+        public void ReloadAccounts() {
+            SteamInstance.GetSteamAccounts();
+            List<Account> accounts = SteamInstance.Accounts;
+            foreach (Account account1 in accounts) {
+                if (!Accounts.Any(account2 => account2.SteamID == account1.SteamID)) {
+                    Accounts.Add(account1);
+                }
+            }
+        }
+
+        public void AddNewAccount() {
             SteamInstance.UpdateRegistry("");
             SteamInstance.KillSteam();
             SteamInstance.RestartSteam();
