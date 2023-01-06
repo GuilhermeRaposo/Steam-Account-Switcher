@@ -4,17 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
              x:Class="SteamAccountSwitcher.Views.AccountsView">
-	
-	<UserControl.Styles>
-		<Style Selector="Label.Title">
-			<Setter Property="FontSize" Value="24" />
-			<Setter Property="FontWeight" Value="Bold" />
-		</Style>
-		<Style Selector="Button.Login">
-			<Setter Property="Width" Value="125" />
-		</Style>
-	</UserControl.Styles>
-	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="80" />
@@ -25,7 +14,7 @@
 		<DockPanel Margin="0,20,0,0">
 				<Image Source="/Assets/icon.ico" />
 		</DockPanel>
-		<Label Classes="Title" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">Steam Account Switcher</Label>
+		<Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" >Steam Account Switcher</Label>
 		<ListBox Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
@@ -40,11 +29,15 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
-			<Button Command="{ Binding Login }" Classes="Login" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="10"> Login </Button>
-			<Button Command="{ Binding AddNewAccount }" Grid.Column="1" HorizontalAlignment="Center" Margin="10" >Add New</Button>
+			<Button Command="{ Binding AddNewAccount }" Grid.Column="0" HorizontalAlignment="Center" Margin="10" > Add New </Button>
+			<Button Command="{ Binding Login }" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Width="125" Margin="10"> Login </Button>
 			<Button Command="{ Binding  ReloadAccounts }" Grid.Column="2" HorizontalAlignment="Center" Height="30" Margin="10">
 				<Image Source="/Assets/reload.png"></Image>
+			</Button>
+			<Button Command="{ Binding OpenSettings }"  Grid.Column="3" HorizontalAlignment="Center" Height="30" Margin="10">
+				<Image Source="/Assets/settings.png"></Image>
 			</Button>
 		</Grid>
 	</Grid>

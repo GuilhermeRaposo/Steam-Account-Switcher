@@ -1,11 +1,12 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using SteamAccountSwitcher.Services;
+using SteamAccountSwitcher.Models;
 using SteamAccountSwitcher.ViewModels;
 using SteamAccountSwitcher.Views;
 
-namespace SteamAccountSwitcher {
+namespace SteamAccountSwitcher
+{
     public partial class App : Application {
         public override void Initialize() {
             AvaloniaXamlLoader.Load(this);

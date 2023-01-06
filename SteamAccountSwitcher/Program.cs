@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
-using SteamAccountSwitcher.Services;
 using System;
 using System.IO;
 

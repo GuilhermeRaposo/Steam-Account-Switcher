@@ -1,11 +1,26 @@
-using SteamAccountSwitcher.Services;
+using JetBrains.Annotations;
+using ReactiveUI;
+using SteamAccountSwitcher.Models;
+using System.Reactive.Linq;
+using System.Windows.Input;
 
-namespace SteamAccountSwitcher.ViewModels {
+namespace SteamAccountSwitcher.ViewModels
+{
     public class MainWindowViewModel : ViewModelBase {
         public MainWindowViewModel(Steam steam) {
-            List = new AccountsViewModel(steam);
+            ShowDialog = new Interaction<SettingsViewModel, OptionsViewModel?>();
+            OpenSettings = ReactiveCommand.CreateFromTask(async () => {
+                SettingsViewModel settings = new SettingsViewModel();
+                var result = await ShowDialog.Handle(settings);
+            });
+            List = new AccountsViewModel(steam, OpenSettings);
+
         }
 
         public AccountsViewModel List { get; }
+
+        public ICommand OpenSettings { get; }
+
+        public Interaction<SettingsViewModel, OptionsViewModel?> ShowDialog { get; }
     }
 }

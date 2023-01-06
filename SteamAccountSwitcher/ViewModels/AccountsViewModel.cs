@@ -5,11 +5,12 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Avalonia.Interactivity;
 using SteamAccountSwitcher.Models;
-using SteamAccountSwitcher.Services;
 
-namespace SteamAccountSwitcher.ViewModels {
+namespace SteamAccountSwitcher.ViewModels
+{
     public class AccountsViewModel : ViewModelBase {
         private Steam SteamInstance { get; }
 
@@ -17,10 +18,13 @@ namespace SteamAccountSwitcher.ViewModels {
 
         public Account SelectedAccount { get; set; }
 
-        public AccountsViewModel(Steam steam) {
+        public ICommand OpenSettings { get; }
+
+        public AccountsViewModel(Steam steam, ICommand openSettingsCommand) {
             SteamInstance = steam;
             SteamInstance.GetSteamAccounts();
             Accounts = new ObservableCollection<Account>(SteamInstance.Accounts);
+            OpenSettings = openSettingsCommand;
         }
 
         public void Login() {
