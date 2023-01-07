@@ -41,4 +41,7 @@
       <DependentUpon>SettingsWindow.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\OptionsView.axaml" />
+  </ItemGroup>
 </Project>

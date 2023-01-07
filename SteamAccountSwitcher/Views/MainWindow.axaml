@@ -24,7 +24,7 @@
                     MaterialOpacity="0.65" />
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
-		<ContentControl Content="{ Binding List }" />
+		<ContentControl Content="{ Binding Steam }" />
 	</Panel>
 
 </Window>
