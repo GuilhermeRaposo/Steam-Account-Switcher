@@ -1,7 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-
-namespace SteamAccountSwitcher.ViewModels {
+﻿namespace SteamAccountSwitcher.ViewModels {
     public class SettingsViewModel : ViewModelBase {
         OptionsViewModel Options { get; }
         public SettingsViewModel() {

@@ -6,13 +6,14 @@ using Newtonsoft.Json.Linq;
 using System;
 using Microsoft.Win32;
 using System.Diagnostics;
+using Gameloop.Vdf.Linq;
 
 namespace SteamAccountSwitcher.Models
 {
     public class Steam
     {
         public List<Account> Accounts { get; } = new List<Account>();
-        private string Path { get; set; }
+        public string Path { get; set; }
 
         public Steam(string path)
         {
@@ -21,8 +22,13 @@ namespace SteamAccountSwitcher.Models
 
         public void GetSteamAccounts()
         {
+            VProperty loginUsersVToken;
+            try {
+                loginUsersVToken = VdfConvert.Deserialize(File.ReadAllText(Path + @"\config\loginusers.vdf"));
+            } catch (Exception ex) when (ex is DirectoryNotFoundException || ex is VdfException) {
+                return;
+            }
             Accounts.Clear();
-            var loginUsersVToken = VdfConvert.Deserialize(File.ReadAllText(Path + @"\config\loginusers.vdf"));
             var loginUsers = new JObject() { loginUsersVToken.ToJson() };
 
             if (loginUsers["users"] != null)

@@ -14,7 +14,9 @@ namespace SteamAccountSwitcher
 
         public override void OnFrameworkInitializationCompleted() {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
-                Steam steam = new Steam(@"C:\Program Files (x86)\Steam");
+                Settings settings = new Settings();
+                settings.readSettingsFile();
+                Steam steam = new Steam(settings.SteamPath);
                 desktop.MainWindow = new MainWindow {
                     DataContext = new MainWindowViewModel(steam),
                 };

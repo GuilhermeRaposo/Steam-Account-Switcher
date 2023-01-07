@@ -12,6 +12,7 @@ using SteamAccountSwitcher.Models;
 namespace SteamAccountSwitcher.ViewModels
 {
     public class AccountsViewModel : ViewModelBase {
+        private Settings settings { get; set; }
         private Steam SteamInstance { get; }
 
         public ObservableCollection<Account> Accounts { get; set; }
@@ -23,6 +24,7 @@ namespace SteamAccountSwitcher.ViewModels
         public AccountsViewModel(Steam steam, ICommand openSettingsCommand) {
             SteamInstance = steam;
             SteamInstance.GetSteamAccounts();
+            settings = new Settings();
             Accounts = new ObservableCollection<Account>(SteamInstance.Accounts);
             OpenSettings = openSettingsCommand;
         }
@@ -35,6 +37,8 @@ namespace SteamAccountSwitcher.ViewModels
         }
 
         public void ReloadAccounts() {
+            settings.readSettingsFile();
+            SteamInstance.Path = settings.SteamPath;
             SteamInstance.GetSteamAccounts();
             List<Account> accounts = SteamInstance.Accounts;
             foreach (Account account1 in accounts) {
