@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using ReactiveUI;
 using SteamAccountSwitcher.Models;
 using System.Reactive.Linq;

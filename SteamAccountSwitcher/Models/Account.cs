@@ -11,9 +11,5 @@ namespace SteamAccountSwitcher.Models {
         [JsonProperty("AllowAutoLogin", Order = 4)] public string AllowAutoLogin = "1";
         [JsonProperty("MostRecent", Order = 5)] public string MostRecent { get; set; }
         [JsonProperty("Timestamp", Order = 6)] public string Timestamp { get; set; }
-
-        public override string ToString() {
-            return $"{SteamID}";
-        }
     }
 }

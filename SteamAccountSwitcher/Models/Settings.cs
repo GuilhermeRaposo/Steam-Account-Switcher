@@ -27,14 +27,13 @@ namespace SteamAccountSwitcher.Models {
                 updateSettingsFile();
             }
         }
+        public void updateSettingsFile() {
+            File.WriteAllText("SteamAccountSwitcher.json", toJSON().ToString());
+        }
 
         public JObject toJSON() {
             JObject output = (JObject)JToken.FromObject(this);
             return output;
-        }
-
-        public void updateSettingsFile() {
-            File.WriteAllText("SteamAccountSwitcher.json", toJSON().ToString());
         }
     }
 }

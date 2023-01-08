@@ -2,7 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+			 xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             xmlns:iac="clr-namespace:Avalonia.Xaml.Interactions.Custom;assembly=Avalonia.Xaml.Interactions"
+			 mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
              x:Class="SteamAccountSwitcher.Views.AccountsView">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -15,12 +18,17 @@
 				<Image Source="/Assets/icon.ico" />
 		</DockPanel>
 		<Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" >Steam Account Switcher</Label>
-		<ListBox Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2">
+		<ListBox x:Name="listbox" Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
-					<TextBlock
-						x:Name="{ Binding AccountName }"
-						Text="{ Binding AccountName }"/>
+					<Grid Background="Transparent" x:Name="GridItem">
+						<TextBlock x:Name="{ Binding AccountName }" Text="{ Binding AccountName }" />
+						<i:Interaction.Behaviors>
+							<ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="GridItem">
+								<ia:InvokeCommandAction Command="{ Binding DataContext.Login,RelativeSource={ RelativeSource Mode=FindAncestor,AncestorType={ x:Type ListBox} } }" />
+							</ia:EventTriggerBehavior>
+						</i:Interaction.Behaviors>
+					</Grid>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>

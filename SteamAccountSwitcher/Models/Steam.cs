@@ -22,15 +22,16 @@ namespace SteamAccountSwitcher.Models
 
         public void GetSteamAccounts()
         {
+            // Read "loginusers.vdf" from steam folder
             VProperty loginUsersVToken;
             try {
                 loginUsersVToken = VdfConvert.Deserialize(File.ReadAllText(Path + @"\config\loginusers.vdf"));
             } catch (Exception ex) when (ex is DirectoryNotFoundException || ex is VdfException) {
                 return;
             }
+
             Accounts.Clear();
             var loginUsers = new JObject() { loginUsersVToken.ToJson() };
-
             if (loginUsers["users"] != null)
             {
                 foreach (var user in loginUsers["users"])
