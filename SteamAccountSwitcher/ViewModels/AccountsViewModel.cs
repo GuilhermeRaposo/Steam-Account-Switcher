@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Input;
+using DynamicData.Kernel;
 using SteamAccountSwitcher.Models;
 
 namespace SteamAccountSwitcher.ViewModels
@@ -16,12 +20,27 @@ namespace SteamAccountSwitcher.ViewModels
 
         public ICommand OpenSettings { get; }
 
+        public string Error { get; set; }
+
         public AccountsViewModel(Steam steam, ICommand openSettingsCommand) {
             SteamInstance = steam;
             SteamInstance.GetSteamAccounts();
             settings = new Settings();
             Accounts = new ObservableCollection<Account>(SteamInstance.Accounts);
             OpenSettings = openSettingsCommand;
+            CheckVersion();
+        }
+
+        public void CheckVersion() {
+            try {
+                Version Latestversion = new Version(Releases.GetLastVersionNumber().Result);
+                Version AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                if (Latestversion.CompareTo(AssemblyVersion) == 1) {
+                    Error = "*New version available*";
+                }
+            } catch (Exception e) {
+                Trace.WriteLine(e);
+            }
         }
 
         public void Login() {
@@ -32,7 +51,7 @@ namespace SteamAccountSwitcher.ViewModels
         }
 
         public void ReloadAccounts() {
-            settings.readSettingsFile();
+            settings.ReadSettingsFile();
             SteamInstance.Path = settings.SteamPath;
             SteamInstance.GetSteamAccounts();
             List<Account> accounts = SteamInstance.Accounts;

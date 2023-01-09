@@ -27,7 +27,7 @@ namespace SteamAccountSwitcher.ViewModels {
             var result = await dialog.ShowAsync((settingsWindow));
             if (File.Exists(result + "/steam.exe")) {
                 SettingsInstance.SteamPath = result;
-                SettingsInstance.updateSettingsFile();
+                SettingsInstance.UpdateSettingsFile();
                 Sucess = "Sucess";
                 Error = "";
             }

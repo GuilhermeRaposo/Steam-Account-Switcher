@@ -10,6 +10,7 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="80" />
+			<RowDefinition Height="30" />
 			<RowDefinition Height="80" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="50" />
@@ -18,7 +19,8 @@
 				<Image Source="/Assets/icon.ico" />
 		</DockPanel>
 		<Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" >Steam Account Switcher</Label>
-		<ListBox x:Name="listbox" Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="2">
+		<Label Grid.Row="2" Content="{ Binding Error }" HorizontalContentAlignment="Center" FontWeight="Bold" />
+		<ListBox x:Name="listbox" Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="3">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid Background="Transparent" x:Name="GridItem">
@@ -32,7 +34,7 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
-		<Grid Grid.Row="3" HorizontalAlignment="Center" >
+		<Grid Grid.Row="4" HorizontalAlignment="Center" >
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="Auto" />

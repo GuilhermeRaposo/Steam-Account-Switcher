@@ -11,11 +11,11 @@ namespace SteamAccountSwitcher.Views {
             InitializeComponent();
             this.WhenActivated(d => d(ViewModel!.ShowDialog.RegisterHandler(DoShowDialogAsync)));
         }
-        public async Task DoShowDialogAsync(InteractionContext<SettingsViewModel, OptionsViewModel?> interaction) {
+        public async Task DoShowDialogAsync(InteractionContext<SettingsViewModel, OptionsViewModel> interaction) {
             SettingsWindow dialog = new SettingsWindow();
             dialog.DataContext = interaction.Input;
 
-            var result = await dialog.ShowDialog<OptionsViewModel?>(this);
+            var result = await dialog.ShowDialog<OptionsViewModel>(this);
             interaction.SetOutput(result);
         }
     }
