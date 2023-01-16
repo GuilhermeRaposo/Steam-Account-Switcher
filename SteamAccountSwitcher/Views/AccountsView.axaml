@@ -7,6 +7,7 @@
              xmlns:iac="clr-namespace:Avalonia.Xaml.Interactions.Custom;assembly=Avalonia.Xaml.Interactions"
 			 mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="400"
              x:Class="SteamAccountSwitcher.Views.AccountsView">
+	
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="80" />
@@ -20,11 +21,23 @@
 		</DockPanel>
 		<Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" >Steam Account Switcher</Label>
 		<Label Grid.Row="2" Content="{ Binding Error }" HorizontalContentAlignment="Center" FontWeight="Bold" />
-		<ListBox x:Name="listbox" Items="{ Binding Accounts }" SelectedItem="{ Binding SelectedAccount }" ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="3">
+		<ListBox x:Name="listbox" 
+				 Items="{ Binding Accounts }" 
+				 SelectedItem="{ Binding SelectedAccount }" 
+				 ScrollViewer.VerticalScrollBarVisibility="Visible" 
+				 Grid.Row="3">
+			<ListBox.Styles>
+				<Style Selector="Border.loggedin">
+					<Setter Property="BorderBrush" Value="DimGray" />
+					<Setter Property="BorderThickness" Value="1" />
+				</Style>
+			</ListBox.Styles>
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<Grid Background="Transparent" x:Name="GridItem">
-						<TextBlock x:Name="{ Binding AccountName }" Text="{ Binding AccountName }" />
+						<Border Classes.loggedin="{ Binding IsLoggedin }" Padding="3">
+							<TextBlock x:Name="{ Binding AccountName }" Text="{ Binding AccountName }" />
+						</Border>
 						<i:Interaction.Behaviors>
 							<ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="GridItem">
 								<ia:InvokeCommandAction Command="{ Binding DataContext.Login,RelativeSource={ RelativeSource Mode=FindAncestor,AncestorType={ x:Type ListBox} } }" />

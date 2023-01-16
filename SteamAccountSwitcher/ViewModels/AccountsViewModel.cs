@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
-using DynamicData.Kernel;
 using SteamAccountSwitcher.Models;
 
 namespace SteamAccountSwitcher.ViewModels
@@ -55,10 +54,9 @@ namespace SteamAccountSwitcher.ViewModels
             SteamInstance.Path = settings.SteamPath;
             SteamInstance.GetSteamAccounts();
             List<Account> accounts = SteamInstance.Accounts;
+            Accounts.Clear();
             foreach (Account account1 in accounts) {
-                if (!Accounts.Any(account2 => account2.SteamID == account1.SteamID)) {
-                    Accounts.Add(account1);
-                }
+                Accounts.Add(account1);
             }
         }
 

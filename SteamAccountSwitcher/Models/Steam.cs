@@ -38,16 +38,21 @@ namespace SteamAccountSwitcher.Models
                 {
                     string steamId = user.ToObject<JProperty>()?.Name;
 
-                    Accounts.Add(new Account()
-                    {
-                        SteamID = steamId,
-                        AccountName = user.First["AccountName"].ToString(),
-                        PersonaName = user.First["PersonaName"].ToString(),
-                        WantsOfflineMode = user.First["WantsOfflineMode"].ToString(),
-                        SkipOfflineModeWarning = user.First["SkipOfflineModeWarning"].ToString(),
-                        MostRecent = user.First["MostRecent"].ToString(),
-                        Timestamp = user.First["Timestamp"].ToString()
-                    });
+                    try {
+                        Accounts.Add(new Account() {
+                            SteamID = steamId,
+                            AccountName = user.First["AccountName"].ToString(),
+                            PersonaName = user.First["PersonaName"].ToString(),
+                            WantsOfflineMode = user.First["WantsOfflineMode"].ToString(),
+                            //SkipOfflineModeWarning = user.First["SkipOfflineModeWarning"].ToString(),
+                            MostRecent = user.First["MostRecent"].ToString(),
+                            Timestamp = user.First["Timestamp"].ToString(),
+                            IsLoggedin = user.First["MostRecent"].ToString().Equals("1")
+                        });
+                    }
+                    catch {
+                        
+                    }
                 }
             }
         }
@@ -56,11 +61,17 @@ namespace SteamAccountSwitcher.Models
         {
             // Update "loginusers.vdf"
             JObject output = new JObject();
+
             foreach (Account account in Accounts)
             {
+                // Change selected account to most recent
                 if (account.SteamID == selectedSteamId)
                 {
                     account.MostRecent = "1";
+                }
+                // Change all other accounts
+                if (account.MostRecent == "1" && account.SteamID != selectedSteamId) {
+                    account.MostRecent = "0";
                 }
                 output[account.SteamID] = (JObject)JToken.FromObject(account);
             }

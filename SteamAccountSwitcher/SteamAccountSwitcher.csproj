@@ -5,6 +5,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishReadyToRun>true</PublishReadyToRun>
     <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
     <TrimMode>copyused</TrimMode>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
