@@ -10,7 +10,7 @@ using SteamAccountSwitcher.Models;
 namespace SteamAccountSwitcher.ViewModels
 {
     public class AccountsViewModel : ViewModelBase {
-        private Settings settings { get; set; }
+        private Settings Settings { get; set; }
         private Steam SteamInstance { get; }
 
         public ObservableCollection<Account> Accounts { get; set; }
@@ -24,10 +24,12 @@ namespace SteamAccountSwitcher.ViewModels
         public AccountsViewModel(Steam steam, ICommand openSettingsCommand) {
             SteamInstance = steam;
             SteamInstance.GetSteamAccounts();
-            settings = new Settings();
+            Settings = new Settings();
             Accounts = new ObservableCollection<Account>(SteamInstance.Accounts);
             OpenSettings = openSettingsCommand;
-            CheckVersion();
+            if (Settings.CheckUpdates) {
+                CheckVersion();
+            }
         }
 
         public void CheckVersion() {
@@ -47,11 +49,12 @@ namespace SteamAccountSwitcher.ViewModels
             SteamInstance.UpdateRegistry(SelectedAccount.AccountName);
             SteamInstance.KillSteam();
             SteamInstance.RestartSteam();
+            this.ReloadAccounts();
         }
 
         public void ReloadAccounts() {
-            settings.ReadSettingsFile();
-            SteamInstance.Path = settings.SteamPath;
+            Settings.ReadSettingsFile();
+            SteamInstance.Path = Settings.SteamPath;
             SteamInstance.GetSteamAccounts();
             List<Account> accounts = SteamInstance.Accounts;
             Accounts.Clear();

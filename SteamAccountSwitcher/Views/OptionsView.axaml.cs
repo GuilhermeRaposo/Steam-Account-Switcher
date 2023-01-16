@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
+using Avalonia.Interactivity;
+using SteamAccountSwitcher.Models;
+using System;
 
 namespace SteamAccountSwitcher.Views {
     public partial class OptionsView : UserControl {

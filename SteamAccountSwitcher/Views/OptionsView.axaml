@@ -5,16 +5,29 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="SteamAccountSwitcher.Views.OptionsView">
   
-	<StackPanel Margin="0,40,0,0">
-		<Label HorizontalAlignment="Center" FontSize="20" FontWeight="Bold"> Settings </Label>
-		<Label Content="Steam Path: " Target="{ Binding ElementName=txtpath }" Margin="12,9,12,0"/>
-		<DockPanel>
-			<TextBox IsVisible="False" DockPanel.Dock="Left" x:Name="txtpath" Margin="12,0,12,12"/>
-			<Button Command="{ Binding ChooseSteamFolder }" DockPanel.Dock="Right" Margin="12,0,12,12"> Choose Folder </Button>
-		</DockPanel>
-		<Label Content="{ Binding Error }" Foreground="Red"/>
-		<Label Content="{ Binding Sucess }" Foreground="Green" />
-	</StackPanel>
+	<Grid Margin="0,40,0,0">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<Label HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" > Settings </Label>
+
+		<Grid Grid.Row="2" Background="#ff2b2b2b">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50"/>
+				<RowDefinition Height="50" />
+			</Grid.RowDefinitions>
+			<RelativePanel Margin="15,15,15,0" Height="50" >				
+				<Button Command="{ Binding ChooseSteamFolder }" x:Name="chooseButton" > Choose Steam Folder </Button>
+				<Label Content="{ Binding Error }" Foreground="Red" RelativePanel.Below="chooseButton" Margin="3,0,0,0" />
+				<Label Content="{ Binding Sucess }" Foreground="Green" RelativePanel.Below="chooseButton" Margin="3,0,0,0" />
+			</RelativePanel>
+			<RelativePanel Grid.Row="2" Margin="18,0,0,0">
+				<Label Content="Check for updates:" Target="{ Binding ElementName=checkbox }" x:Name="label" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="32" />
+				<CheckBox IsChecked="{ Binding CheckUpdates }" x:Name="checkbox" RelativePanel.RightOf="label" VerticalAlignment="Center" Height="25" Margin="5,0,0,0" />					
+			</RelativePanel>
+		</Grid>
+	</Grid>
 	
 	
 </UserControl>
