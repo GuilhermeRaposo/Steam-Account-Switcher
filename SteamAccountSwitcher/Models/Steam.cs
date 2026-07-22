@@ -44,10 +44,10 @@ namespace SteamAccountSwitcher.Models
                             AccountName = user.First["AccountName"].ToString(),
                             PersonaName = user.First["PersonaName"].ToString(),
                             WantsOfflineMode = user.First["WantsOfflineMode"].ToString(),
-                            //SkipOfflineModeWarning = user.First["SkipOfflineModeWarning"].ToString(),
-                            MostRecent = user.First["MostRecent"].ToString(),
+                            SkipOfflineModeWarning = user.First["SkipOfflineModeWarning"].ToString(),
+                            AutoLogin = user.First["AutoLogin"].ToString(),
                             Timestamp = user.First["Timestamp"].ToString(),
-                            IsLoggedin = user.First["MostRecent"].ToString().Equals("1")
+                            IsLoggedin = user.First["AutoLogin"].ToString().Equals("1")
                         });
                     }
                     catch {
@@ -67,11 +67,11 @@ namespace SteamAccountSwitcher.Models
                 // Change selected account to most recent
                 if (account.SteamID == selectedSteamId)
                 {
-                    account.MostRecent = "1";
+                    account.AutoLogin = "1";
                 }
                 // Change all other accounts
-                if (account.MostRecent == "1" && account.SteamID != selectedSteamId) {
-                    account.MostRecent = "0";
+                if (account.AutoLogin == "1" && account.SteamID != selectedSteamId) {
+                    account.AutoLogin = "0";
                 }
                 output[account.SteamID] = (JObject)JToken.FromObject(account);
             }
